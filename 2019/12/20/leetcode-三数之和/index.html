@@ -5,14 +5,19 @@
   
 
   
-  <title>Hexo</title>
+  <title>leetcode:三数之和 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;index.html">
+  <meta name="description" content="leetcode:三数之和思路：首先对数组进行排序，排序后固定一个数 nums[i]，再使用左右指针指向 nums[i]后面的两端，数字分别为 nums[left] 和 nums[right]，计算三个数的和 sum 判断是否满足为 0，满足则添加进结果集如果nums[i]大于 0，则三数之和必然无法等于 0，结束循环如果nums[i] &#x3D;&#x3D; nums[i-1]，则说明该数字重复，会导致结果重复，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="leetcode:三数之和">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2019&#x2F;12&#x2F;20&#x2F;leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="leetcode:三数之和思路：首先对数组进行排序，排序后固定一个数 nums[i]，再使用左右指针指向 nums[i]后面的两端，数字分别为 nums[left] 和 nums[right]，计算三个数的和 sum 判断是否满足为 0，满足则添加进结果集如果nums[i]大于 0，则三数之和必然无法等于 0，结束循环如果nums[i] &#x3D;&#x3D; nums[i-1]，则说明该数字重复，会导致结果重复，">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2019-12-20T14:08:25.000Z">
+<meta property="article:modified_time" content="2019-12-20T14:51:36.185Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="leetcode 三数之和">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
@@ -62,9 +67,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-leetcode-三数之和" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-leetcode-三数之和" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/12/20/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" class="article-date">
   <time datetime="2019-12-20T14:08:25.000Z" itemprop="datePublished">2019-12-20</time>
@@ -77,8 +80,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/20/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">leetcode:三数之和</a>
+    <h1 class="article-title" itemprop="name">
+      leetcode:三数之和
     </h1>
   
 
@@ -107,88 +110,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-基于windows系统部署博客遇到的问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/12/19/%E5%9F%BA%E4%BA%8Ewindows%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" class="article-date">
-  <time datetime="2019-12-19T11:40:35.000Z" itemprop="datePublished">2019-12-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/12/19/%E5%9F%BA%E4%BA%8Ewindows%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">Hexo创建博客部署到GitHub</a>
-    </h1>
+    <a href="/2019/12/19/%E5%9F%BA%E4%BA%8Ewindows%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hexo创建博客部署到GitHub</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="hexo-GitHub搭建个人博客"><a href="#hexo-GitHub搭建个人博客" class="headerlink" title="hexo/GitHub搭建个人博客"></a>hexo/GitHub搭建个人博客</h1><p>系统：win10 64位</p>
-<h2 id="一、下载并安装Git"><a href="#一、下载并安装Git" class="headerlink" title="一、下载并安装Git"></a>一、下载并安装Git</h2><h3 id="1-下载地址："><a href="#1-下载地址：" class="headerlink" title="1. 下载地址："></a>1. 下载地址：</h3><p><a href="https://git-scm.com/" target="_blank" rel="noopener">https://git-scm.com/</a></p>
-<h3 id="2-安装Git"><a href="#2-安装Git" class="headerlink" title="2. 安装Git"></a>2. 安装Git</h3><p>跟随默认选项即可</p>
-<h3 id="3-测试是否安装成功"><a href="#3-测试是否安装成功" class="headerlink" title="3. 测试是否安装成功"></a>3. 测试是否安装成功</h3><p>win+R  键入cmd 启动命令提示符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git --version</span><br><span class="line">输出：</span><br><span class="line">git version 2.17.0.windows.1</span><br></pre></td></tr></table></figure>
-
-<p>如果发现<strong>无法使用</strong>，则查看<strong>环境变量</strong>是否正确配置</p>
-<h3 id="4-环境变量"><a href="#4-环境变量" class="headerlink" title="4. 环境变量"></a>4. 环境变量</h3><p><img src="/images/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F1.jpg" alt="image-20191219203254045"></p>
-<p><img src="/images/%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F.jpg" alt="image-20191219203132664"></p>
-<h2 id="二、下载并安装node-js"><a href="#二、下载并安装node-js" class="headerlink" title="二、下载并安装node.js"></a>二、下载并安装node.js</h2><h3 id="1-下载地址"><a href="#1-下载地址" class="headerlink" title="1. 下载地址"></a>1. 下载地址</h3><p><a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">https://nodejs.org/en/download/</a></p>
-<h3 id="2-测试是否安装成功"><a href="#2-测试是否安装成功" class="headerlink" title="2. 测试是否安装成功"></a>2. 测试是否安装成功</h3><p>win+R  键入cmd 启动命令提示符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">node -v</span><br><span class="line">输出</span><br><span class="line">v12.14.0</span><br></pre></td></tr></table></figure>
-
-<h2 id="三、下载并安装hexo"><a href="#三、下载并安装hexo" class="headerlink" title="三、下载并安装hexo"></a>三、下载并安装hexo</h2><h3 id="1-下载安装"><a href="#1-下载安装" class="headerlink" title="1. 下载安装"></a>1. 下载安装</h3><p>以管理员身份启动命令提示符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry&#x3D;https:&#x2F;&#x2F;registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-
-<p>安装hexo</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cnpm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-测试安装是否成功"><a href="#2-测试安装是否成功" class="headerlink" title="2. 测试安装是否成功"></a>2. 测试安装是否成功</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo -v</span><br></pre></td></tr></table></figure>
-
-<h2 id="四、建立本地博客"><a href="#四、建立本地博客" class="headerlink" title="四、建立本地博客"></a>四、建立本地博客</h2><h3 id="1-初始化hexo"><a href="#1-初始化hexo" class="headerlink" title="1. 初始化hexo"></a>1. 初始化hexo</h3><p>在指定位置创建博客的文件夹，并使用管理员身份的命令行进入该文件夹</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">cd xxxx</span><br><span class="line">##初始化</span><br><span class="line">hexo init</span><br></pre></td></tr></table></figure>
-
-<h3 id="2-启动hexo最初的模板博客"><a href="#2-启动hexo最初的模板博客" class="headerlink" title="2. 启动hexo最初的模板博客"></a>2. 启动hexo最初的模板博客</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hexo s</span><br><span class="line"></span><br><span class="line">INFO  Start processing</span><br><span class="line">INFO  Hexo is running at http:&#x2F;&#x2F;localhost:4000 . Press Ctrl+C to stop.</span><br></pre></td></tr></table></figure>
-
-<p>访问<a href="http://localhost:4000" target="_blank" rel="noopener">http://localhost:4000</a></p>
-<p><img src="/images/hexo%E5%88%9D%E5%A7%8B%E6%A8%A1%E6%9D%BF.jpg" alt="hexo界面"></p>
-<p>这样一个本地的静态博客就完成啦</p>
-<h2 id="五、托管到GitHub"><a href="#五、托管到GitHub" class="headerlink" title="五、托管到GitHub"></a>五、托管到GitHub</h2><h3 id="1-创建一个GitHub仓库"><a href="#1-创建一个GitHub仓库" class="headerlink" title="1. 创建一个GitHub仓库"></a>1. 创建一个GitHub仓库</h3><p><img src="/images/github%E4%BB%93%E5%BA%93.jpg" alt="github仓库"></p>
-<p>红框内是仓库名，需要命名为Owner名. github.io</p>
-<h3 id="2-配置"><a href="#2-配置" class="headerlink" title="2. 配置"></a>2. 配置</h3><p><strong>账号邮件配置</strong>（这步很重要，如果不设置为报错：Please tell me who you are）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.email &quot;你的邮箱&quot;</span><br><span class="line">git config --global user.name &quot;你的名字&quot;</span><br></pre></td></tr></table></figure>
-
-<h4 id="config配置"><a href="#config配置" class="headerlink" title="config配置"></a>config配置</h4><p>打开blog所在文件夹下的_config.yml文件，可以用记事本打开，拉到最后</p>
-<p>按照如下配置</p>
-<p><strong>注意type的 ‘  ‘</strong>单引号不可删除</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># Deployment</span><br><span class="line">## Docs: https:&#x2F;&#x2F;hexo.io&#x2F;docs&#x2F;deployment.html</span><br><span class="line">deploy:</span><br><span class="line">  type: &#39;git&#39;</span><br><span class="line">  repo: https:&#x2F;&#x2F;github.com&#x2F;tjuniversitywzy&#x2F;tjuniversitywzy.github.io.git</span><br><span class="line">  branch: master</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2019/12/19/%E5%9F%BA%E4%BA%8Ewindows%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" data-id="ck4e9v8hc0001psvp7gih7l8w" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="tag">blog hexo 搭建博客</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-
 
 </section>
         
