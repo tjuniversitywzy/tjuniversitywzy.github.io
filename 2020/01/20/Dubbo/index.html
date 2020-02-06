@@ -5,80 +5,81 @@
   
 
   
-  <title>Dubbo | Hexo</title>
+  <title>Dubbo的用法 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="学习目标： 了解应用架构演进过程 了解RPC技术 掌握Dubbo框架的架构 掌握Zookeeper注册中心的基本使用 掌握Dubbo生产者和消费者的开发 了解Dubbo的管理控制台的使用 了解Dubbo的相关配置  1. 应用架构的演进过程 单一应用架构当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。  垂直">
+  <meta name="description" content="1. 应用架构的演进过程 单一应用架构当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。  垂直应用架构当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。  分布式服务架构当垂直应用越来越多，应用之间交互不可">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dubbo">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;Dubbo&#x2F;index.html">
+<meta property="og:title" content="Dubbo的用法">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;Dubbo&#x2F;index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="学习目标： 了解应用架构演进过程 了解RPC技术 掌握Dubbo框架的架构 掌握Zookeeper注册中心的基本使用 掌握Dubbo生产者和消费者的开发 了解Dubbo的管理控制台的使用 了解Dubbo的相关配置  1. 应用架构的演进过程 单一应用架构当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。  垂直">
+<meta property="og:description" content="1. 应用架构的演进过程 单一应用架构当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。  垂直应用架构当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。  分布式服务架构当垂直应用越来越多，应用之间交互不可">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562633553559.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562658873573.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562658931553.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562658953366.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562659024662.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562656624997.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562656641829.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562888790694.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C4.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562659835206.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C1560586255942.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C1560587180150.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C1560587298993.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562823673438.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C1560587577885.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562733978901.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562733297929.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562733206299.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562719183259.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562719198087.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562726437476.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562726588504.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562728591027.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562728703972.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562728850588.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562729178324.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562730187564.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562732492202.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562730928702.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562731491516.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562731771609.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562731913108.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562732519578.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562733560343.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562733741426.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;&#x2F;img&#x2F;1562729178324.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562736489923.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562739430619.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562730928702.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562739741394.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img%5C5.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740114711.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740186415.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740202630.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740643986.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740763707.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;Dubbo&#x2F;img&#x2F;1562740784084.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562740911585.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562741128909.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562741175665.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562741396004.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743547846.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743642930.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743678473.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743723766.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743837590.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743885001.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743908098.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562743973093.png">
-<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562744005861.png">
-<meta property="article:published_time" content="2020-02-06T13:06:44.608Z">
-<meta property="article:modified_time" content="2020-02-06T13:16:58.775Z">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562633553559.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562658873573.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562658931553.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562658953366.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562659024662.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562656624997.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562656641829.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562888790694.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C4.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562659835206.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C1560586255942.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C1560587180150.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C1560587298993.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562823673438.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C1560587577885.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562733978901.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562733297929.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562733206299.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562719183259.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562719198087.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562726437476.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562726588504.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562728591027.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562728703972.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562728850588.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562729178324.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562730187564.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562732492202.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562730928702.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562731491516.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562731771609.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562731913108.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562732519578.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562733560343.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562733741426.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;&#x2F;img&#x2F;1562729178324.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562736489923.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562739430619.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562730928702.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562739741394.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img%5C5.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740114711.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740186415.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740202630.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740643986.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740763707.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;Dubbo&#x2F;img&#x2F;1562740784084.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562740911585.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562741128909.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562741175665.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562741396004.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743547846.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743642930.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743678473.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743723766.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743837590.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743885001.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743908098.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562743973093.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562744005861.png">
+<meta property="article:published_time" content="2020-01-20T04:01:32.000Z">
+<meta property="article:modified_time" content="2020-02-06T13:25:15.417Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="dubbo">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;06&#x2F;images&#x2F;img&#x2F;1562633553559.png">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;01&#x2F;20&#x2F;images&#x2F;img&#x2F;1562633553559.png">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -129,8 +130,8 @@
       <div class="outer">
         <section id="main"><article id="post-Dubbo" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2020/02/06/Dubbo/" class="article-date">
-  <time datetime="2020-02-06T13:06:44.608Z" itemprop="datePublished">2020-02-06</time>
+    <a href="/2020/01/20/Dubbo/" class="article-date">
+  <time datetime="2020-01-20T04:01:32.000Z" itemprop="datePublished">2020-01-20</time>
 </a>
     
   </div>
@@ -141,7 +142,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Dubbo
+      Dubbo的用法
     </h1>
   
 
@@ -149,16 +150,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="学习目标："><a href="#学习目标：" class="headerlink" title="学习目标："></a>学习目标：</h1><ul>
-<li>了解应用架构演进过程</li>
-<li>了解RPC技术</li>
-<li>掌握Dubbo框架的架构</li>
-<li>掌握Zookeeper注册中心的基本使用</li>
-<li>掌握Dubbo生产者和消费者的开发</li>
-<li>了解Dubbo的管理控制台的使用</li>
-<li>了解Dubbo的相关配置</li>
-</ul>
-<h2 id="1-应用架构的演进过程"><a href="#1-应用架构的演进过程" class="headerlink" title="1. 应用架构的演进过程"></a>1. 应用架构的演进过程</h2><p><img src="../images/img/1562633553559.png" alt="1562633553559"></p>
+        <h2 id="1-应用架构的演进过程"><a href="#1-应用架构的演进过程" class="headerlink" title="1. 应用架构的演进过程"></a>1. 应用架构的演进过程</h2><p><img src="../images/img/1562633553559.png" alt="1562633553559"></p>
 <h3 id="单一应用架构"><a href="#单一应用架构" class="headerlink" title="单一应用架构"></a>单一应用架构</h3><p>当网站流量很小时，只需一个应用，将所有功能都部署在一起，以减少部署节点和成本。此时，用于简化增删改查工作量的数据访问框架(ORM)是关键。</p>
 <p><img src="../images/img/1562658873573.png" alt="1562658873573"></p>
 <h3 id="垂直应用架构"><a href="#垂直应用架构" class="headerlink" title="垂直应用架构"></a>垂直应用架构</h3><p>当访问量逐渐增大，单一应用增加机器带来的加速度越来越小，将应用拆成互不相干的几个应用，以提升效率。此时，用于加速前端页面开发的Web框架(MVC)是关键。</p>
@@ -671,19 +663,30 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2020/02/06/Dubbo/" data-id="ck6arnbpn00006wvp5nkjbb4q" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2020/01/20/Dubbo/" data-id="ck6arx4tb0001vcvp6fts7hua" class="article-share-link">Share</a>
       
       
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li></ul>
+
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
+    <a href="/2020/01/28/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          八大排序算法
+        
+      </div>
+    </a>
   
-    <a href="/2020/01/28/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" id="article-nav-older" class="article-nav-link-wrap">
+  
+    <a href="/2020/01/01/ssm%E6%95%B4%E5%90%88/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">八大排序算法</div>
+      <div class="article-nav-title">ssm整合</div>
     </a>
   
 </nav>
@@ -702,7 +705,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSM%E6%95%B4%E5%90%88/" rel="tag">SSM整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="tag">blog hexo 搭建博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="tag">leetcode 三数之和</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/" rel="tag">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-IOC/" rel="tag">spring IOC</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/SSM%E6%95%B4%E5%90%88/" rel="tag">SSM整合</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpringMVC/" rel="tag">SpringMVC</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" rel="tag">blog hexo 搭建博客</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/dubbo/" rel="tag">dubbo</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" rel="tag">leetcode 三数之和</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring/" rel="tag">spring</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/spring-IOC/" rel="tag">spring IOC</a></li></ul>
     </div>
   </div>
 
@@ -712,7 +715,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/SSM%E6%95%B4%E5%90%88/" style="font-size: 10px;">SSM整合</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/blog-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">blog hexo 搭建博客</a> <a href="/tags/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" style="font-size: 10px;">leetcode 三数之和</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-IOC/" style="font-size: 10px;">spring IOC</a>
+      <a href="/tags/SSM%E6%95%B4%E5%90%88/" style="font-size: 10px;">SSM整合</a> <a href="/tags/SpringMVC/" style="font-size: 10px;">SpringMVC</a> <a href="/tags/blog-hexo-%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" style="font-size: 10px;">blog hexo 搭建博客</a> <a href="/tags/dubbo/" style="font-size: 10px;">dubbo</a> <a href="/tags/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" style="font-size: 10px;">leetcode 三数之和</a> <a href="/tags/spring/" style="font-size: 10px;">spring</a> <a href="/tags/spring-IOC/" style="font-size: 10px;">spring IOC</a>
     </div>
   </div>
 
@@ -721,7 +724,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/02/">February 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/01/">January 2020</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/12/">December 2019</a></li></ul>
     </div>
   </div>
 
@@ -734,11 +737,11 @@
       <ul>
         
           <li>
-            <a href="/2020/02/06/Dubbo/">Dubbo</a>
+            <a href="/2020/01/28/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">八大排序算法</a>
           </li>
         
           <li>
-            <a href="/2020/01/28/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/">八大排序算法</a>
+            <a href="/2020/01/20/Dubbo/">Dubbo的用法</a>
           </li>
         
           <li>
