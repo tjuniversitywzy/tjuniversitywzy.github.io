@@ -3,7 +3,7 @@
   <entry>
     <title>JVM虚拟机</title>
     <url>/2020/02/07/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/</url>
-    <content><![CDATA[<h2 id="JVM介绍（1）"><a href="#JVM介绍（1）" class="headerlink" title="JVM介绍（1）"></a>JVM介绍（1）</h2><h3 id="1-JVM主要内容概述："><a href="#1-JVM主要内容概述：" class="headerlink" title="1.JVM主要内容概述："></a>1.JVM主要内容概述：</h3><p><img src="%5Cimages%5CJVM%5CJVM%E5%9B%BE%E7%AE%80%E8%BF%B0.png" alt="image-20200209113902416"></p>
+    <content><![CDATA[<h2 id="JVM介绍（1）"><a href="#JVM介绍（1）" class="headerlink" title="JVM介绍（1）"></a>JVM介绍（1）</h2><h3 id="1-JVM主要内容概述："><a href="#1-JVM主要内容概述：" class="headerlink" title="1.JVM主要内容概述："></a>1.JVM主要内容概述：</h3><p><img src="/images%5CJVM%5CJVM%E5%9B%BE%E7%AE%80%E8%BF%B0.png" alt="image-20200209113902416"></p>
 <p><img src="%5Cimages%5CJVM%5CJVM-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png" alt="image-20200209123050463"></p>
 <p><strong>线程隔离数据区</strong></p>
 <p><strong>程序计数器(Program Counter Register)：</strong><br>一小块内存空间，单前线程所执行的字节码行号指示器。字节码解释器工作时，通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
