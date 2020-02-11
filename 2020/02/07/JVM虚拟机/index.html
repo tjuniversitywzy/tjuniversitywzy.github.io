@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JVM," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="JVM介绍（1）1.JVM主要内容概述：  线程隔离数据区 程序计数器(Program Counter Register)：一小块内存空间，单前线程所执行的字节码行号指示器。字节码解释器工作时，通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。 JVM虚拟机栈(Java Virtual Machine Stacks)：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM虚拟机">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;index.html">
+<meta property="og:site_name" content="行舟">
+<meta property="og:description" content="JVM介绍（1）1.JVM主要内容概述：  线程隔离数据区 程序计数器(Program Counter Register)：一小块内存空间，单前线程所执行的字节码行号指示器。字节码解释器工作时，通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。 JVM虚拟机栈(Java Virtual Machine Stacks)：">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5CJVM%E5%9B%BE%E7%AE%80%E8%BF%B0.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5CJVM-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5Clinking%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5C%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5C%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5C%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5CJVM-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA1.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5C%E6%A0%88%E5%B8%A7%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8.png">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5Cslot.png">
+<meta property="article:published_time" content="2020-02-07T03:35:48.000Z">
+<meta property="article:modified_time" content="2020-02-11T03:48:19.493Z">
+<meta property="article:author" content="WZY">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;07&#x2F;JVM%E8%99%9A%E6%8B%9F%E6%9C%BA&#x2F;%5Cimages%5CJVM%5CJVM%E5%9B%BE%E7%AE%80%E8%BF%B0.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/02/07/JVM虚拟机/"/>
+
+
+
+
+
+  <title>JVM虚拟机 | 行舟</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript"
+  color="0,0,255" opacity='0.7' zIndex="-2" count="99" src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js"></script>
+  
+<meta name="generator" content="Hexo 4.1.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">行舟</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/07/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WZY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/nier.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="行舟">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JVM虚拟机</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-07T11:35:48+08:00">
+                2020-02-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="JVM介绍（1）"><a href="#JVM介绍（1）" class="headerlink" title="JVM介绍（1）"></a>JVM介绍（1）</h2><h3 id="1-JVM主要内容概述："><a href="#1-JVM主要内容概述：" class="headerlink" title="1.JVM主要内容概述："></a>1.JVM主要内容概述：</h3><p><img src="%5Cimages%5CJVM%5CJVM%E5%9B%BE%E7%AE%80%E8%BF%B0.png" alt="image-20200209113902416"></p>
+<p><img src="%5Cimages%5CJVM%5CJVM-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA.png" alt="image-20200209123050463"></p>
+<p><strong>线程隔离数据区</strong></p>
+<p><strong>程序计数器(Program Counter Register)：</strong><br>一小块内存空间，单前线程所执行的字节码行号指示器。字节码解释器工作时，通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。</p>
+<p><strong>JVM虚拟机栈(Java Virtual Machine Stacks)：</strong><br>Java方法执行内存模型，用于存储局部变量，操作数栈，动态链接，方法出口等信息。是线程私有的。</p>
+<p><strong>本地方法栈(Native Method Stacks)：</strong><br>为JVM用到的Native方法服务，Sun HotSpot 虚拟机把本地方法栈和JVM虚拟机栈合二为一。是线程私有的。</p>
+<p><strong>线程共享的数据区</strong></p>
+<p><strong>方法区Method Area：</strong></p>
+<p>用于存储JVM加载的类信息、常量、静态变量、即使编译器编译后的代码等数据。<br><strong>运行时常量池Runtime Constant Pool）</strong>：<br>是方法区的一部分，用于存放编译器生成的各种字面量和符号引用，这部分内容将在类加载后存放到方法取得运行时常量池中。具备动态性，用的比较多的就是String类的intern()方法。<br><strong>JVM堆 Java Virtual Machine Heap）</strong>：<br>存放所有对象实例的地方。</p>
+<h3 id="2-类的加载过程"><a href="#2-类的加载过程" class="headerlink" title="2.类的加载过程"></a>2.类的加载过程</h3><h4 id="1-loading"><a href="#1-loading" class="headerlink" title="1.loading"></a>1.loading</h4><ol>
+<li>通过一个类的全限定类名获取此定义类的二进制字节流</li>
+<li>将这个字节流代表的静态存储结构转化为方法区的运行时数据结构</li>
+<li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据访问口</li>
+</ol>
+<h4 id="2-linking-链接"><a href="#2-linking-链接" class="headerlink" title="2.linking(链接)"></a>2.linking(链接)</h4><p><img src="%5Cimages%5CJVM%5Clinking%E8%BF%87%E7%A8%8B.png" alt="image-20200209125230235"></p>
+<h4 id="3-initializing-初始化"><a href="#3-initializing-初始化" class="headerlink" title="3.initializing(初始化)"></a>3.initializing(初始化)</h4><p><img src="%5Cimages%5CJVM%5C%E5%88%9D%E5%A7%8B%E5%8C%96%E8%BF%87%E7%A8%8B.png" alt="image-20200209130854852"></p>
+<p>值得注意的是：如果类中没有静态成员变量的赋值以及静态代码块语句，clinit是不会存在的 </p>
+<p>静态成员变量在prepare阶段默认赋值，在initial阶段真正赋值</p>
+<h2 id="2-类加载器"><a href="#2-类加载器" class="headerlink" title="2.类加载器"></a>2.类加载器</h2><p><img src="%5Cimages%5CJVM%5C%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8.png" alt="image-20200209173007177"></p>
+<p>类加载器分为引导类加载器，扩展类加载器和系统类加载器，还有用户自己定义的类加载器</p>
+<p>其实按照大类分的话就分为两类，一种是引导类加载器，另一种是用户类加载器</p>
+<h3 id="Bootstrap-Class-Loader-：启动类加载器"><a href="#Bootstrap-Class-Loader-：启动类加载器" class="headerlink" title="Bootstrap Class Loader ：启动类加载器"></a>Bootstrap Class Loader ：启动类加载器</h3><ol>
+<li>这个类是使用C/C++语言实现的</li>
+<li>它用来加载java的核心库</li>
+<li>并不继承子java.lang.ClassLoader，没有父加载器</li>
+<li>加载扩展类和应用程序类加载器，并指定为他们的父类加载器</li>
+<li>出于安全考虑，Bootstrap启动类加载器只加载包名为java，javax或者sun开头的类</li>
+</ol>
+<h3 id="Extension-ClassLoader-扩展类加载器"><a href="#Extension-ClassLoader-扩展类加载器" class="headerlink" title="Extension ClassLoader: 扩展类加载器"></a>Extension ClassLoader: 扩展类加载器</h3><ol>
+<li>java语言编写</li>
+<li>派生于ClassLoader类</li>
+<li>父类加载器为启动类加载器</li>
+<li>从java.ext.dirs系统属性所指定的目录中加载类库，或从jdk安装目录的jre/lib/ext子目录下加载类库。如果用户创建的jar放在此目录下，也回自动由扩展加载器加载</li>
+</ol>
+<h3 id="System-ClassLoader-系统加载器"><a href="#System-ClassLoader-系统加载器" class="headerlink" title="System ClassLoader: 系统加载器"></a>System ClassLoader: 系统加载器</h3><ol>
+<li>java语言编写</li>
+<li>派生于ClassLoader类</li>
+<li>父类加载器为扩展类加载器</li>
+<li>它负载加载环境变量classpath或系统属性java.class.path指定下的类库</li>
+</ol>
+<h2 id="3-双亲委派机制"><a href="#3-双亲委派机制" class="headerlink" title="3.双亲委派机制"></a>3.双亲委派机制</h2><p>Java虚拟机对class文件采用的是按需加载的方式，也就是说当需要使用该类时才会将它的class文件加载到内存生成class对象。而且加载某个类的class文件时，java虚拟机采用的是双亲委派模式，即把请求交给父类处理，它是一种任务委派模式。</p>
+<p>工作原理：</p>
+<ol>
+<li><p>如果一个类加载器守到了加载类的请求，它并不会自己先去加载，而是把这个请求委托给父类加载器去执行</p>
+</li>
+<li><p>如果父类加载器还存在其父类加载器，则进一步向上委托，依次递归，请求最终将到达顶层的启动类加载器</p>
+</li>
+<li><p>如果父类加载器可以完成类的加载任务，就成功返回，倘若父类加载器无法完成此加载任务，子加载器才会尝试自己去加载，这就是双亲委派模式</p>
+<p><strong>好处就是保持类的加载是可控的，我们不可以去篡改核心类的定义，比如想篡改一下String这个类，自己建立java.lang.String这个全限定类名，然而使用的时候根本不会使用自己定义的这个类，因为启动类加载器已经加载了它 所知道 的核心类库中的String类，这个性质也叫沙箱安全机制</strong></p>
+</li>
+</ol>
+<p><img src="%5Cimages%5CJVM%5C%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6.png" alt="image-20200209181155265"></p>
+<h2 id="4-运行时数据区"><a href="#4-运行时数据区" class="headerlink" title="4.运行时数据区"></a>4.运行时数据区</h2><p><img src="%5Cimages%5CJVM%5CJVM-%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA1.png" alt="image-20200209185538082"></p>
+<h3 id="1-程序计数器（PC寄存器）"><a href="#1-程序计数器（PC寄存器）" class="headerlink" title="1.程序计数器（PC寄存器）"></a>1.程序计数器（PC寄存器）</h3><p>程序计数器的作用是：存储指向下一条指令的地址，也就是即将要执行的指令代码，由执行引擎读取下一条指令</p>
+<p>（行号指示器）</p>
+<h4 id="问题："><a href="#问题：" class="headerlink" title="问题："></a>问题：</h4><h4 id="1-使用PC寄存器储存字节码指令地址有什么用呢？"><a href="#1-使用PC寄存器储存字节码指令地址有什么用呢？" class="headerlink" title="1.使用PC寄存器储存字节码指令地址有什么用呢？"></a>1.使用PC寄存器储存字节码指令地址有什么用呢？</h4><p>因为CPU需要不停的切换各个线程，这时候切换回来以后，就得知道接着从哪开始继续执行</p>
+<p>JVM字节码解释器就需要通过改变PC寄存器的值来明确下一条执行什么样的字节码指令</p>
+<h4 id="2-PC-寄存器为什么各个线程是独立的？"><a href="#2-PC-寄存器为什么各个线程是独立的？" class="headerlink" title="2.PC 寄存器为什么各个线程是独立的？"></a>2.PC 寄存器为什么各个线程是独立的？</h4><p>因为多线程就是在一个特定的时间段内只会执行其中一个线程的方法，CPU会不停地做任务切换，这样必然导致经常中断或者恢复，如何保证分毫无差呢，为了能够准确地记录各个线程正在执行的当前字节码指令地址，最好的办法自然是为每一个线程都分配一个PC寄存器，这样一来各个线程就可以独立计算，不会互相干扰。</p>
+<h3 id="2-虚拟机栈"><a href="#2-虚拟机栈" class="headerlink" title="2.虚拟机栈"></a>2.虚拟机栈</h3><p><strong>每个线程在创建时都会创建一个虚拟机栈，其内部保存一个个的栈帧</strong></p>
+<p>其生命周期和线程一致</p>
+<p>作用是主管java程序的运行，它保存方法的局部变量、部分结果，并参与方法的调用和返回</p>
+<h4 id="1-栈运行原理"><a href="#1-栈运行原理" class="headerlink" title="1.栈运行原理"></a>1.栈运行原理</h4><ol>
+<li>JVM对于栈的操作只有两个，就是栈帧的压栈和出栈，先进先出</li>
+<li>在一条活动线程中，一个时间点上，只会有一个活动的栈帧。即只有当前正在执行的方法的栈帧是有效的，这个栈帧呗称为当前栈帧，当前栈帧对应的方法就是当前方法，定义这个方法的类就是当前类</li>
+<li>执行引擎运行的所有字节码指令只针对当前栈帧进行操作</li>
+<li>如果该方法调用了其他方法，对应新的栈帧会被创建出来，放在栈的顶端成为，新的当前帧</li>
+<li>不同的线程之间不可以相互引用对方的栈帧</li>
+</ol>
+<h4 id="2-栈帧的内部结构"><a href="#2-栈帧的内部结构" class="headerlink" title="2.栈帧的内部结构"></a>2.栈帧的内部结构</h4><p><img src="%5Cimages%5CJVM%5C%E6%A0%88%E5%B8%A7%E7%9A%84%E5%86%85%E9%83%A8%E7%BB%93%E6%9E%84.png" alt="image-20200210120727512"></p>
+<p>每个栈帧中存储着：</p>
+<ol>
+<li>局部变量表</li>
+<li>操作数栈</li>
+<li>动态链接</li>
+<li>方法返回地址</li>
+<li>一些附加信息</li>
+</ol>
+<h5 id="1-局部变量表："><a href="#1-局部变量表：" class="headerlink" title="1.局部变量表："></a>1.局部变量表：</h5><p>局部变量表也呗称之为局部变量数组或本地变量表</p>
+<p><strong>定义为一个数字数组，主要用于存储方法参数和定义在方法体内的局部变量</strong>，这些数据类型包括各类基本数据类型、对象引用，以及returnAddress类型</p>
+<p>由于局部变量表是建立在线程的栈上，是线程的私有数据，因此<strong>不存在数据安全问题</strong></p>
+<p><strong>局部变量表所需的容量大小是在编译器确定下来的</strong>，并保存在方法的Code属性的maximum local variables数据项中。在方法运行期间是不会改变局部变量表的大小的</p>
+<p>方法的嵌套调用的最大次数由栈的大小决定。一般来说，栈越大，方法嵌套的调用次数就可以更多。对于一个函数而言，它的参数和局部变量越多，使得局部变量表膨胀，它的栈帧就越大，以满足方法调用所需传递信息增大的需求，进而每个栈帧就会占用更多的空间</p>
+<p>局部变量表只在当前方法调用中有效。方法执行时，虚拟机通过使用局部变量表完成参数值到参数变量列表的传递过程，当方法调用结束后，随着方法栈帧的销毁，局部变量表也会随之销毁。</p>
+<p>slot的理解</p>
+<p><img src="%5Cimages%5CJVM%5C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E8%A1%A8.png" alt="image-20200210143918820"></p>
+<p><img src="%5Cimages%5CJVM%5Cslot.png" alt="image-20200210144220247"></p>
+<p><strong>为什么静态方法不可以使用this</strong>？因为静态方法的局部变量表中没有this这个变量的储存</p>
+<p>而非静态方法在局部变量表里是会存在一个this变量</p>
+<p>变量分类：</p>
+<p>按照数据类型：1.基本数据类型 2.引用数据类型</p>
+<p>按在类中声明的位置分：</p>
+<ol>
+<li><p>成员变量：在使用前，都经历过默认初始化赋值</p>
+<p>​    static 修饰—-&gt;类变量,在link的prepare阶段赋值</p>
+<p>​    没有static—–&gt;实例变量：随着对象的创建而赋值</p>
+</li>
+<li><p>局部变量：在使用前，必须进行显式赋值，否则，编译不通过</p>
+</li>
+</ol>
+<p>在栈帧中，<strong>与性能调优关系最为密切的就是局部变量表</strong>，虚拟机使用局部变量表进行方法的传递</p>
+<p>局部变量表中的变量也是重要的垃圾回收根节点—<strong>垃圾回收的根节点算法</strong>，只要被局部变量表中直接或间接引用的对象都不会被回收</p>
+<h5 id="2-操作数栈"><a href="#2-操作数栈" class="headerlink" title="2.操作数栈"></a>2.操作数栈</h5><p>每一个独立的栈帧中除了包含局部变量表以外，还包含一个后进先出的操作数栈，也可以称之为表达式栈</p>
+<p>操作数栈，在方法执行过程中，根据字节码指令，往栈中写入数据或提取数据，即入栈/出栈 push / pop</p>
+<p>利用操作数栈解释i++,++i,i=i++,i=++i,i = i++ + ++i;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7++;</span><br><span class="line"><span class="comment">//=================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">++i7;</span><br><span class="line"></span><br><span class="line">i++ 和 ++i;在字节码中均为</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span>  <span class="comment">//第一步将10压入操作数栈中	</span></span><br><span class="line"><span class="number">2</span> istore_1   <span class="comment">//第二步把10存到 ‘1’ 位置的局部变量表中，第一个是main函数的args</span></span><br><span class="line"><span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span> <span class="comment">//第三步把局部变量表中的 ‘1’ 位置上的数字嘉义</span></span><br><span class="line"><span class="number">6</span> <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对比i = i++ 和 i = ++i;</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = i7++;</span><br><span class="line">字节码为：</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span>  <span class="comment">//第一步将10压入操作数栈中</span></span><br><span class="line"><span class="number">2</span> istore_1   <span class="comment">//第二步把10存到 ‘1’ 位置的局部变量表中，第一个是main函数的args</span></span><br><span class="line"><span class="number">3</span> iload_1    <span class="comment">//第三步把10从局部变量表中装载进操作数栈中</span></span><br><span class="line"><span class="number">4</span> iinc <span class="number">1</span> by <span class="number">1</span><span class="comment">//第四步把局部变量表中的 ‘1’ 位置上的数字加一，也就是局部变量表中i7变为了11，但栈中不变</span></span><br><span class="line"><span class="number">7</span> istore_1   <span class="comment">//第五步把操作数栈中的10储存在原位置，也就是完成了一个覆盖，因此i7不变</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//=============================================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = ++i7;</span><br><span class="line">字节码为</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span></span><br><span class="line"><span class="number">2</span> istore_1</span><br><span class="line"><span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span> <span class="comment">//先把局部变量表中的10加一变成11</span></span><br><span class="line"><span class="number">6</span> iload_1     <span class="comment">//再把局部变量表中的11放入操作数栈中</span></span><br><span class="line"><span class="number">7</span> istore_1    <span class="comment">//再把操作数栈的11储存回原位置上</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//可以看出它和上面的区别在于局部变量表值的改变和放入操作数栈中的顺序不一致，++后置是先取出到操作数栈，随后改变局部变量表中的值，体现出它是想先赋值后变化的思想，因为取到操作数栈的值是原来的，而++前置则是已经将值加一，再取出，体现出先改变后赋值的思想。</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对比i = i++ + ++i; 和 i = ++i + i++;假设i=10</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = i7++ + ++i7;</span><br><span class="line">字节码为：</span><br><span class="line"> <span class="number">0</span> bipush <span class="number">10</span>    <span class="comment">//把10压入操作数栈</span></span><br><span class="line"> <span class="number">2</span> istore_1     <span class="comment">//操作数栈弹出10，储存进局部变量表中</span></span><br><span class="line"> <span class="number">3</span> iload_1      <span class="comment">//3，4编号是执行i7++,先将10取出，再把局部变量表中的值+1</span></span><br><span class="line"> <span class="number">4</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"> <span class="number">7</span> iinc <span class="number">1</span> by <span class="number">1</span>  <span class="comment">//7，10是执行++i7,先在局部变量表中+1，再取出</span></span><br><span class="line"><span class="number">10</span> iload_1</span><br><span class="line"><span class="number">11</span> iadd         <span class="comment">//二者在操作数栈中相加</span></span><br><span class="line"><span class="number">12</span> istore_1     <span class="comment">//储存进局部变量表中，因此值为22，相当于10+12；</span></span><br><span class="line"><span class="number">13</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//java的运算是将加号左右两边的值先取出来，再进行运算,从左向右执行</span></span><br><span class="line"><span class="comment">//==========================================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = ++i7 + i7++;</span><br><span class="line">字节码为：</span><br><span class="line"> <span class="number">0</span> bipush <span class="number">10</span></span><br><span class="line"> <span class="number">2</span> istore_1</span><br><span class="line"> <span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"> <span class="number">6</span> iload_1</span><br><span class="line"> <span class="number">7</span> iload_1</span><br><span class="line"> <span class="number">8</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"><span class="number">11</span> iadd</span><br><span class="line"><span class="number">12</span> istore_1</span><br><span class="line"><span class="number">13</span> <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可见，这个和上面的不同之处在于，先进行了++i7的取出，再进行了i7++的操作，相当于11+11，也是22</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>栈顶缓存技术</strong></p>
+<p>基于栈式架构的虚拟机所使用的零地址指令更加紧凑，但完成一项操作的时候必然需要使用更多的入栈和出栈操作，意味着将需要更多的指令分派次数和内存读写次数</p>
+<p>由于操作数是存储在内存中的，因此频繁地执行内存读写操作必然回影响执行速度，为了解决这个问题，jvm设计者提出了栈顶缓存技术，<strong>将栈顶的元素全部缓存在物理CPU的寄存器中，以此降低对内存的读写次数，提升执行引擎的执行效率</strong></p>
+<h5 id="3-动态链接"><a href="#3-动态链接" class="headerlink" title="3.动态链接"></a>3.动态链接</h5><p>指向运行时常量池的方法引用</p>
+<p>每一个栈帧内部包含一个指向<strong>运行时常量池</strong>中该栈帧所属方法的引用。包含这个引用的目的就是为了支持当前方法的代码能够实现动态链接</p>
+<p>在java源文件被编译到字节码文件中时，所有的变量和方法引用都作为符号引用保存在class文件的常量池里。比如：描述一个方法调用了另外的其他方法时，就是通过常量池中指向的方法的符号引用来表示的，那么<strong>动态链接的作用就是为了将这些符号引用转换为调用方法的直接引用</strong></p>
+<p><strong>也就是说，常量池中存储着各种方法的引用，真正的方法调用的时候就从常量池中拿，这个就叫动态链接</strong></p>
+<h5 id="（方法的调用）解释多态性"><a href="#（方法的调用）解释多态性" class="headerlink" title="（方法的调用）解释多态性"></a>（方法的调用）解释多态性</h5><p>在JVM中，将符号引用转换为调用方法的直接引用与方法的绑定机制有关</p>
+<p><strong>静态链接</strong>：–早期绑定</p>
+<p>当一个字节码文件被装载进JVM内部时，如果被调用的目标方法在编译器可知，且运行期保持不变，这种情况下将调用方法的符号引用转换为直接引用的过程称之为静态链接</p>
+<p><strong>动态链接</strong>：–晚期绑定</p>
+<p>如果被调用的方法按照编译器无法被确定下来，也就是说，只能在程序运行期将调用方法的符号引用转换为直接引用，由于这种引用转换过程具备动态性，因此被称之为动态链接</p>
+<p>方法的调用分为虚方法和非虚方法，其中，虚方法可以实现多态的特性</p>
+<p>普通调用指令：</p>
+<ol>
+<li>invokestatic:调用静态方法，解析阶段确定唯一方法版本</li>
+<li>invokespecial:调用init方法、私有及父类方法，解析阶段确定唯一方法版本</li>
+<li>invokevirtual:调用所有虚方法（它也会调用final方法）</li>
+<li>invokeinterface调用接口方法</li>
+<li>invokedynamic:动态解析出西药调用的方法，然后执行</li>
+</ol>
+<p>前四条指令固化在虚拟机内部，方法的调用执行不可人为干预，而invokedynamic指令则支持由用户确定方法版本。其中invokestatic指令和invokespecial指令调用的方法称为非虚方法，其余的（final修饰的除外，final虽然是非虚方法，但是却由invokevirtual调用）称为虚方法</p>
+<p>方法重写是动态分派，即在运行时根据实际类型确定方法执行版本</p>
+<p>方法重载是静态分派，在编译阶段利用静态类型来确定调用的是哪一个方法</p>
+<h5 id="4-方法返回地址"><a href="#4-方法返回地址" class="headerlink" title="4.方法返回地址"></a>4.方法返回地址</h5><p>方法内调用方法，告诉方法执行完这个方法之后接下来执行什么</p>
+<h4 id="3-本地方法栈"><a href="#3-本地方法栈" class="headerlink" title="3.本地方法栈"></a>3.本地方法栈</h4><p>java虚拟机栈管理java方法的调用，而本地方法栈用于管理本地方法的调用</p>
+<p>本地方法栈是线程私有的</p>
+<p>允许被实现成固定或者是可动态扩展的内存大小</p>
+<p>本地方法是用C实现的</p>
+<p>它的具体做法是Native Method Stack 中等级native方法，在Execution Engine执行时加载本地方法库</p>
+<h2 id="5、本地方法接口"><a href="#5、本地方法接口" class="headerlink" title="5、本地方法接口"></a>5、本地方法接口</h2><p>什么是本地方法：</p>
+<p>简单说，本地方法就是一个java调用非java代码的接口。本地方法的实现由非java语言实现，比如C，这个特征很多语言都有</p>
+<p>本地接口的作用是融合不同编程语言为java所用</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/02/03/%E4%BB%8EJVM%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E4%BA%86%E8%A7%A3i-%E5%92%8C-i-%E7%9A%84%E5%8C%BA%E5%88%AB/" rel="next" title="从JVM字节码的角度了解i++ 和 ++i 的区别">
+                <i class="fa fa-chevron-left"></i> 从JVM字节码的角度了解i++ 和 ++i 的区别
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/uploads/nier.jpg"
+               alt="WZY" />
+          <p class="site-author-name" itemprop="name">WZY</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">9</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM介绍（1）"><span class="nav-number">1.</span> <span class="nav-text">JVM介绍（1）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JVM主要内容概述："><span class="nav-number">1.1.</span> <span class="nav-text">1.JVM主要内容概述：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-类的加载过程"><span class="nav-number">1.2.</span> <span class="nav-text">2.类的加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-loading"><span class="nav-number">1.2.1.</span> <span class="nav-text">1.loading</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-linking-链接"><span class="nav-number">1.2.2.</span> <span class="nav-text">2.linking(链接)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-initializing-初始化"><span class="nav-number">1.2.3.</span> <span class="nav-text">3.initializing(初始化)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-类加载器"><span class="nav-number">2.</span> <span class="nav-text">2.类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bootstrap-Class-Loader-：启动类加载器"><span class="nav-number">2.1.</span> <span class="nav-text">Bootstrap Class Loader ：启动类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Extension-ClassLoader-扩展类加载器"><span class="nav-number">2.2.</span> <span class="nav-text">Extension ClassLoader: 扩展类加载器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#System-ClassLoader-系统加载器"><span class="nav-number">2.3.</span> <span class="nav-text">System ClassLoader: 系统加载器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-双亲委派机制"><span class="nav-number">3.</span> <span class="nav-text">3.双亲委派机制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-运行时数据区"><span class="nav-number">4.</span> <span class="nav-text">4.运行时数据区</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-程序计数器（PC寄存器）"><span class="nav-number">4.1.</span> <span class="nav-text">1.程序计数器（PC寄存器）</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#问题："><span class="nav-number">4.1.1.</span> <span class="nav-text">问题：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-使用PC寄存器储存字节码指令地址有什么用呢？"><span class="nav-number">4.1.2.</span> <span class="nav-text">1.使用PC寄存器储存字节码指令地址有什么用呢？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-PC-寄存器为什么各个线程是独立的？"><span class="nav-number">4.1.3.</span> <span class="nav-text">2.PC 寄存器为什么各个线程是独立的？</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-虚拟机栈"><span class="nav-number">4.2.</span> <span class="nav-text">2.虚拟机栈</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-栈运行原理"><span class="nav-number">4.2.1.</span> <span class="nav-text">1.栈运行原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-栈帧的内部结构"><span class="nav-number">4.2.2.</span> <span class="nav-text">2.栈帧的内部结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-局部变量表："><span class="nav-number">4.2.2.1.</span> <span class="nav-text">1.局部变量表：</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-操作数栈"><span class="nav-number">4.2.2.2.</span> <span class="nav-text">2.操作数栈</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-动态链接"><span class="nav-number">4.2.2.3.</span> <span class="nav-text">3.动态链接</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#（方法的调用）解释多态性"><span class="nav-number">4.2.2.4.</span> <span class="nav-text">（方法的调用）解释多态性</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-方法返回地址"><span class="nav-number">4.2.2.5.</span> <span class="nav-text">4.方法返回地址</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-本地方法栈"><span class="nav-number">4.2.3.</span> <span class="nav-text">3.本地方法栈</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、本地方法接口"><span class="nav-number">5.</span> <span class="nav-text">5、本地方法接口</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WZY</span>
+</div>
+
+<!--
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Gemini
+  </a>
+</div>
+-->
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+          <span id="scrollpercent"><span>0</span>%</span>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+ <script type="text/javascript" src="/js/src/clicklove.js"></script>
+</body>
+</html>

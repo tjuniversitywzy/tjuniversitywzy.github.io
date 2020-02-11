@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JVM i++ ++i," />
 
 
 
@@ -94,12 +94,19 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="行舟">
-<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;archives&#x2F;2019&#x2F;index.html">
+<meta name="description" content="从字节码的角度了解i++与++i的区别利用操作数栈解释i++,++i,i&#x3D;i++,i&#x3D;++i,i &#x3D; i++ + ++i; 主要涉及局部变量表和操作数栈的使用，i++是直接作用在局部变量表中的，而四则运算以及等于号在操作数栈中执行 1.对比i++,++i假设i&#x3D;10； 1234567891011int i7 &#x3D; 10;i7++;&#x2F;&#x2F;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;int i7 &#x3D; 10;++i7">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从JVM字节码的角度了解i++ 和 ++i 的区别">
+<meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E4%BB%8EJVM%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E4%BA%86%E8%A7%A3i-%E5%92%8C-i-%E7%9A%84%E5%8C%BA%E5%88%AB&#x2F;index.html">
 <meta property="og:site_name" content="行舟">
+<meta property="og:description" content="从字节码的角度了解i++与++i的区别利用操作数栈解释i++,++i,i&#x3D;i++,i&#x3D;++i,i &#x3D; i++ + ++i; 主要涉及局部变量表和操作数栈的使用，i++是直接作用在局部变量表中的，而四则运算以及等于号在操作数栈中执行 1.对比i++,++i假设i&#x3D;10； 1234567891011int i7 &#x3D; 10;i7++;&#x2F;&#x2F;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;int i7 &#x3D; 10;++i7">
+<meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E4%BB%8EJVM%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E4%BA%86%E8%A7%A3i-%E5%92%8C-i-%E7%9A%84%E5%8C%BA%E5%88%AB&#x2F;%5Cimages%5CJVM%5Ci++%E5%92%8C++i.png">
+<meta property="article:published_time" content="2020-02-03T09:55:45.000Z">
+<meta property="article:modified_time" content="2020-02-11T03:47:12.723Z">
 <meta property="article:author" content="WZY">
+<meta property="article:tag" content="JVM i++ ++i">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;02&#x2F;03&#x2F;%E4%BB%8EJVM%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E4%BA%86%E8%A7%A3i-%E5%92%8C-i-%E7%9A%84%E5%8C%BA%E5%88%AB&#x2F;%5Cimages%5CJVM%5Ci++%E5%92%8C++i.png">
 
 
 
@@ -128,13 +135,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/archives/2019/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/02/03/从JVM字节码的角度了解i-和-i-的区别/"/>
 
 
 
 
 
-  <title>归档 | 行舟</title>
+  <title>从JVM字节码的角度了解i++ 和 ++i 的区别 | 行舟</title>
   
 
 
@@ -163,7 +170,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -291,222 +298,163 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/02/03/%E4%BB%8EJVM%E5%AD%97%E8%8A%82%E7%A0%81%E7%9A%84%E8%A7%92%E5%BA%A6%E4%BA%86%E8%A7%A3i-%E5%92%8C-i-%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="WZY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/nier.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="行舟">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">从JVM字节码的角度了解i++ 和 ++i 的区别</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-02-03T17:55:45+08:00">
+                2020-02-03
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 10 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2019">2019</h2>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/20/leetcode-%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/" itemprop="url">
-              
-                <span itemprop="name">leetcode:三数之和</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-20T22:08:25+08:00"
-              content="2019-12-20" >
-          12-20
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="从字节码的角度了解i-与-i的区别"><a href="#从字节码的角度了解i-与-i的区别" class="headerlink" title="从字节码的角度了解i++与++i的区别"></a>从字节码的角度了解i++与++i的区别</h3><p>利用操作数栈解释<strong>i++,++i,i=i++,i=++i,i = i++ + ++i;</strong></p>
+<p>主要涉及局部变量表和操作数栈的使用，i++是直接作用在局部变量表中的，而四则运算以及等于号在操作数栈中执行</p>
+<h4 id="1-对比i-i"><a href="#1-对比i-i" class="headerlink" title="1.对比i++,++i"></a>1.对比i++,++i</h4><p>假设i=10；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7++;</span><br><span class="line"><span class="comment">//=================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">++i7;</span><br><span class="line"></span><br><span class="line">i++ 和 ++i;在字节码中均为</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span>  <span class="comment">//第一步将10压入操作数栈中	</span></span><br><span class="line"><span class="number">2</span> istore_1   <span class="comment">//第二步把10存到 ‘1’ 位置的局部变量表中，第一个是main函数的args</span></span><br><span class="line"><span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span> <span class="comment">//第三步把局部变量表中的 ‘1’ 位置上的数字嘉义</span></span><br><span class="line"><span class="number">6</span> <span class="keyword">return</span></span><br></pre></td></tr></table></figure>
+
+<p>下图为i = i++;的示意图，灰色为局部变量表，红色为操作数栈</p>
+<p><img src="%5Cimages%5CJVM%5Ci++%E5%92%8C++i.png" alt="i++"></p>
+<h4 id="2-对比i-i-和-i-i"><a href="#2-对比i-i-和-i-i" class="headerlink" title="2.对比i = i++ 和 i = ++i;"></a>2.对比i = i++ 和 i = ++i;</h4><p>假设i=10;</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//对比i = i++ 和 i = ++i;</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = i7++;</span><br><span class="line">字节码为：</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span>  <span class="comment">//第一步将10压入操作数栈中</span></span><br><span class="line"><span class="number">2</span> istore_1   <span class="comment">//第二步把10存到 ‘1’ 位置的局部变量表中，第一个是main函数的args</span></span><br><span class="line"><span class="number">3</span> iload_1    <span class="comment">//第三步把10从局部变量表中装载进操作数栈中</span></span><br><span class="line"><span class="number">4</span> iinc <span class="number">1</span> by <span class="number">1</span><span class="comment">//第四步把局部变量表中的 ‘1’ 位置上的数字加一，也就是局部变量表中i7变为了11，但栈中不变</span></span><br><span class="line"><span class="number">7</span> istore_1   <span class="comment">//第五步把操作数栈中的10储存在原位置，也就是完成了一个覆盖，因此i7不变</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//=============================================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = ++i7;</span><br><span class="line">字节码为</span><br><span class="line"><span class="number">0</span> bipush <span class="number">10</span></span><br><span class="line"><span class="number">2</span> istore_1</span><br><span class="line"><span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span> <span class="comment">//先把局部变量表中的10加一变成11</span></span><br><span class="line"><span class="number">6</span> iload_1     <span class="comment">//再把局部变量表中的11放入操作数栈中</span></span><br><span class="line"><span class="number">7</span> istore_1    <span class="comment">//再把操作数栈的11储存回原位置上</span></span><br><span class="line"><span class="number">8</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//可以看出它和上面的区别在于局部变量表值的改变和放入操作数栈中的顺序不一致，++后置是先取出到操作数栈，随后改变局部变量表中的值，体现出它是想先赋值后变化的思想，因为取到操作数栈的值是原来的，而++前置则是已经将值加一，再取出，体现出先改变后赋值的思想。</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-对比i-i-i-和-i-i-i"><a href="#3-对比i-i-i-和-i-i-i" class="headerlink" title="3.对比i = i++ + ++i; 和 i = ++i + i++;"></a>3.对比i = i++ + ++i; 和 i = ++i + i++;</h4><p>假设i=10</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//对比i = i++ + ++i; 和 i = ++i + i++;假设i=10</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = i7++ + ++i7;</span><br><span class="line">字节码为：</span><br><span class="line"> <span class="number">0</span> bipush <span class="number">10</span>    <span class="comment">//把10压入操作数栈</span></span><br><span class="line"> <span class="number">2</span> istore_1     <span class="comment">//操作数栈弹出10，储存进局部变量表中</span></span><br><span class="line"> <span class="number">3</span> iload_1      <span class="comment">//3，4编号是执行i7++,先将10取出，再把局部变量表中的值+1</span></span><br><span class="line"> <span class="number">4</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"> <span class="number">7</span> iinc <span class="number">1</span> by <span class="number">1</span>  <span class="comment">//7，10是执行++i7,先在局部变量表中+1，再取出</span></span><br><span class="line"><span class="number">10</span> iload_1</span><br><span class="line"><span class="number">11</span> iadd         <span class="comment">//二者在操作数栈中相加</span></span><br><span class="line"><span class="number">12</span> istore_1     <span class="comment">//储存进局部变量表中，因此值为22，相当于10+12；</span></span><br><span class="line"><span class="number">13</span> <span class="keyword">return</span></span><br><span class="line"><span class="comment">//java的运算是将加号左右两边的值先取出来，再进行运算,从左向右执行</span></span><br><span class="line"><span class="comment">//==========================================</span></span><br><span class="line"><span class="keyword">int</span> i7 = <span class="number">10</span>;</span><br><span class="line">i7 = ++i7 + i7++;</span><br><span class="line">字节码为：</span><br><span class="line"> <span class="number">0</span> bipush <span class="number">10</span></span><br><span class="line"> <span class="number">2</span> istore_1</span><br><span class="line"> <span class="number">3</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"> <span class="number">6</span> iload_1</span><br><span class="line"> <span class="number">7</span> iload_1</span><br><span class="line"> <span class="number">8</span> iinc <span class="number">1</span> by <span class="number">1</span></span><br><span class="line"><span class="number">11</span> iadd</span><br><span class="line"><span class="number">12</span> istore_1</span><br><span class="line"><span class="number">13</span> <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//可见，这个和上面的不同之处在于，先进行了++i7的取出，再进行了i7++的操作，相当于11+11，也是22</span></span><br></pre></td></tr></table></figure>
 
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/19/SpringMVC%E5%AD%A6%E4%B9%A0%E6%80%BB%E7%BB%93-1/" itemprop="url">
-              
-                <span itemprop="name">SpringMVC学习总结(1)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-19T18:50:48+08:00"
-              content="2019-12-19" >
-          12-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/12/spring%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E6%80%BB%E7%BB%93-2/" itemprop="url">
-              
-                <span itemprop="name">spring学习中的总结(2)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-12T19:14:14+08:00"
-              content="2019-12-12" >
-          12-12
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/09/spring%E5%AD%A6%E4%B9%A0%E4%B8%AD%E7%9A%84%E6%80%BB%E7%BB%93-1/" itemprop="url">
-              
-                <span itemprop="name">spring学习中的总结(1)</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-09T20:59:02+08:00"
-              content="2019-12-09" >
-          12-09
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/12/01/%E5%9F%BA%E4%BA%8Ewindows%E7%B3%BB%E7%BB%9F%E9%83%A8%E7%BD%B2%E5%8D%9A%E5%AE%A2%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" itemprop="url">
-              
-                <span itemprop="name">Hexo创建博客部署到GitHub</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-12-01T19:40:35+08:00"
-              content="2019-12-01" >
-          12-01
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JVM-i-i/" rel="tag"># JVM i++ ++i</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/28/%E5%85%AB%E5%A4%A7%E6%8E%92%E5%BA%8F%E7%AE%97%E6%B3%95/" rel="next" title="八大排序算法">
+                <i class="fa fa-chevron-left"></i> 八大排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/02/07/JVM%E8%99%9A%E6%8B%9F%E6%9C%BA/" rel="prev" title="JVM虚拟机">
+                JVM虚拟机 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -514,6 +462,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -534,8 +486,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/nier.jpg"
@@ -588,6 +549,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从字节码的角度了解i-与-i的区别"><span class="nav-number">1.</span> <span class="nav-text">从字节码的角度了解i++与++i的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-对比i-i"><span class="nav-number">1.1.</span> <span class="nav-text">1.对比i++,++i</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-对比i-i-和-i-i"><span class="nav-number">1.2.</span> <span class="nav-text">2.对比i &#x3D; i++ 和 i &#x3D; ++i;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-对比i-i-i-和-i-i-i"><span class="nav-number">1.3.</span> <span class="nav-text">3.对比i &#x3D; i++ + ++i; 和 i &#x3D; ++i + i++;</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -718,11 +695,9 @@
 
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
