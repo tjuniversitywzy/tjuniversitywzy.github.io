@@ -94,15 +94,15 @@
 
 
 
-<meta name="description" content="SSH配置和原理 在gitlab，github上面拷贝代码时，通常用到了git clone ssh:&#x2F;&#x2F;XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。 配置SSH git使用SSH配置， 初始需要以下三个步骤  使用秘钥生成工具生成rsa秘钥和公钥  将rsa公钥添加到代码托管平台  将rsa秘钥添加到ssh-agent中，为ssh c">
+<meta name="description" content="SSH配置和原理在gitlab，github上面拷贝代码时，通常用到了git clone ssh:&#x2F;&#x2F;XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。 配置SSHgit使用SSH配置， 初始需要以下三个步骤  使用秘钥生成工具生成rsa秘钥和公钥  将rsa公钥添加到代码托管平台  将rsa秘钥添加到ssh-agent中，为ssh cli">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SSH配置及原理">
 <meta property="og:url" content="http:&#x2F;&#x2F;yoursite.com&#x2F;2020&#x2F;04&#x2F;25&#x2F;SSH%E9%85%8D%E7%BD%AE%E5%8F%8A%E5%8E%9F%E7%90%86&#x2F;index.html">
 <meta property="og:site_name" content="行舟">
-<meta property="og:description" content="SSH配置和原理 在gitlab，github上面拷贝代码时，通常用到了git clone ssh:&#x2F;&#x2F;XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。 配置SSH git使用SSH配置， 初始需要以下三个步骤  使用秘钥生成工具生成rsa秘钥和公钥  将rsa公钥添加到代码托管平台  将rsa秘钥添加到ssh-agent中，为ssh c">
+<meta property="og:description" content="SSH配置和原理在gitlab，github上面拷贝代码时，通常用到了git clone ssh:&#x2F;&#x2F;XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。 配置SSHgit使用SSH配置， 初始需要以下三个步骤  使用秘钥生成工具生成rsa秘钥和公钥  将rsa公钥添加到代码托管平台  将rsa秘钥添加到ssh-agent中，为ssh cli">
 <meta property="og:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;SSH&#x2F;SSH%E5%9B%BE.png">
 <meta property="article:published_time" content="2020-04-25T09:56:00.000Z">
-<meta property="article:modified_time" content="2020-04-25T09:58:36.164Z">
+<meta property="article:modified_time" content="2020-04-25T10:07:03.760Z">
 <meta property="article:author" content="WZY">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http:&#x2F;&#x2F;yoursite.com&#x2F;images&#x2F;SSH&#x2F;SSH%E5%9B%BE.png">
@@ -378,10 +378,8 @@
       
 
       
-        <p>SSH配置和原理</p>
-<p>在gitlab，github上面拷贝代码时，通常用到了git clone ssh://XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。</p>
-<p>配置SSH</p>
-<p>git使用SSH配置， 初始需要以下三个步骤</p>
+        <h2 id="SSH配置和原理"><a href="#SSH配置和原理" class="headerlink" title="SSH配置和原理"></a>SSH配置和原理</h2><p>在gitlab，github上面拷贝代码时，通常用到了git clone ssh://XXX命令。其中ssh指secure shell（一种安全的网络协议），git使用这种协议进行远程加密登录。</p>
+<h3 id="配置SSH"><a href="#配置SSH" class="headerlink" title="配置SSH"></a>配置SSH</h3><p>git使用SSH配置， 初始需要以下三个步骤</p>
 <ol>
 <li><p>使用秘钥生成工具生成rsa秘钥和公钥</p>
 </li>
@@ -398,8 +396,7 @@
 <li><p>对于在默认路径~/.ssh/下生成的id_rsa密钥对，任何ssh client是可以直接读取到，不需要额外配置</p>
 </li>
 </ul>
-<p>验证原理</p>
-<p>SSH登录安全性由非对称加密保证，产生密钥时，一次产生两个密钥，一个公钥，一个私钥，在git中一般命名为id_rsa.pub, id_rsa。</p>
+<h3 id="验证原理"><a href="#验证原理" class="headerlink" title="验证原理"></a>验证原理</h3><p>SSH登录安全性由非对称加密保证，产生密钥时，一次产生两个密钥，一个公钥，一个私钥，在git中一般命名为id_rsa.pub, id_rsa。</p>
 <p>那么如何使用生成的一个私钥一个公钥进行验证呢？</p>
 <ul>
 <li><p>本地生成一个密钥对，其中公钥放到远程主机，私钥保存在本地</p>
@@ -415,7 +412,6 @@
 <li><p>生成和管理秘钥有点繁琐，需要管理员添加成员的public key。不能进行匿名访问，ssh不利于对权限进行细分，用户必须具有通过SSH协议访问你主机的权限，才能进行下一步操作，比较适合内部项目</p>
 </li>
 </ul>
-<p>2.编译thrift文件时无法编译，按照教程解决</p>
 
       
     </div>
@@ -500,8 +496,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/uploads/nier.jpg"
@@ -554,6 +559,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#SSH配置和原理"><span class="nav-number">1.</span> <span class="nav-text">SSH配置和原理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#配置SSH"><span class="nav-number">1.1.</span> <span class="nav-text">配置SSH</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证原理"><span class="nav-number">1.2.</span> <span class="nav-text">验证原理</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
